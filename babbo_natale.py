@@ -28,7 +28,7 @@ Dato questo giochino come partenza, aggiungere le seguenti modifiche:
         - Crea una nuova immagine per il golden cookie
         - Gestisci la creazione, il timer, ecc
         - Gestisci il punteggio
-
+sdfsd
 Fate questo esercizio in una repository su git e mandate il link al vostro account sul form
 """
 class BabboNatale(arcade.Window):
