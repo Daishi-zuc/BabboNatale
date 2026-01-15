@@ -46,6 +46,11 @@ class BabboNatale(arcade.Window):
         self.down_pressed = False
         self.left_pressed = False
         self.right_pressed = False
+        self.M_pressed = False
+
+        self.volume = 0
+
+        self.suono = True
         
         self.velocita = 4
         
@@ -65,7 +70,7 @@ class BabboNatale(arcade.Window):
 
         def sfondo(self):   
     
-            self.background=arcade.Sprite("Assets\f7cedaeb5e7157797544e8636bc00f1a.png")
+            self.background=arcade.Sprite("Assets\images.png")
             self.background.center_x = 1920
             self.background.center_y = 1080
             self.background.scale = 1
@@ -120,6 +125,9 @@ class BabboNatale(arcade.Window):
             self.babbo.center_y = 0
         elif self.babbo.center_y > self.height:
             self.babbo.center_y = self.height
+
+            if self.suono: 
+                arcade.play_sound(self.suono_munch)
         
         # Gestione collisioni
         collisioni = arcade.check_for_collision_with_list(self.babbo, self.lista_cookie)
@@ -139,6 +147,15 @@ class BabboNatale(arcade.Window):
             self.left_pressed = True
         elif tasto in (arcade.key.RIGHT, arcade.key.D):
             self.right_pressed = True
+
+        elif tasto == arcade.key.M:
+            self.M_pressed = True
+            if self.volume == 0:
+                self.suono = False
+                self.volume = 1
+            elif self.volume == 1:
+                self.suono = True
+                self.volume = 0
     
     def on_key_release(self, tasto, modificatori):
         """Gestisce il rilascio dei tasti"""
@@ -150,6 +167,8 @@ class BabboNatale(arcade.Window):
             self.left_pressed = False
         elif tasto in (arcade.key.RIGHT, arcade.key.D):
             self.right_pressed = False
+        elif tasto == arcade.key.M:
+            self.M_pressed = False
 
 def main():
     gioco = BabboNatale(600, 600, "Babbo Natale")
