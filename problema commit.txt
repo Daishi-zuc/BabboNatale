@@ -1,0 +1,20 @@
+prof avrei un problema con i commit e nel terminale mi da questo
+PS C:\Users\1975c\OneDrive\Desktop\BabboNatale> git add .
+PS C:\Users\1975c\OneDrive\Desktop\BabboNatale> git -m "punteggio"
+unknown option: -m
+usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]
+           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]
+           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]    
+           <command> [<args>]
+PS C:\Users\1975c\OneDrive\Desktop\BabboNatale> git push
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use   
+
+    git push --set-upstream origin master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.       
+
+PS C:\Users\1975c\OneDrive\Desktop\BabboNatale> 

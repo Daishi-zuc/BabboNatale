@@ -1,6 +1,6 @@
 import arcade
 import random
-
+import math
 
 
 """
@@ -49,10 +49,15 @@ class BabboNatale(arcade.Window):
         self.M_pressed = False
 
         self.volume = 0
-
-        self.suono = True
         
+        self.suono = True
+        self.angle = random.uniform(0,360)
+        self.biscotti_pervolta = 2
+        self.quantity = 1
+        self.contatore = 5
         self.velocita = 4
+
+        self.numero_biscotti=0
         
         self.setup()
     
@@ -79,9 +84,14 @@ class BabboNatale(arcade.Window):
 
     
     def crea_cookie(self):
+        self.angolo = random.uniform(0, 360)
+        self.angolo_rad = math.radians(self.angolo)
+        self.distanza = random.randint(100, 350)
+
         self.cookie = arcade.Sprite("./assets/cookie.png")
-        self.cookie.center_x = random.randint(50, 550)
-        self.cookie.center_y = random.randint(50, 550)
+        self.cookie.center_x = self.babbo.center_x + math.cos(self.angolo_rad) * self.distanza  
+        self.cookie.center_y = self.babbo.center_y + math.sin(self.angolo_rad) * self.distanza 
+        self.cookie.scale = 0.2
         self.cookie.scale = 0.2
         self.lista_cookie.append(self.cookie)
     
@@ -89,7 +99,16 @@ class BabboNatale(arcade.Window):
         self.lista_background.draw()
         self.clear()
         self.lista_cookie.draw()
+        self.lista_cookie.draw()
         self.lista_babbo.draw()
+
+        arcade.draw_text(
+            f"Punteggio: {self.numero_biscotti}",
+            15, #X
+            420, # y
+            arcade.color.BLUE,
+            15
+        )
     
     def on_update(self, delta_time):
         # Calcola movimento in base ai tasti premuti
@@ -129,11 +148,23 @@ class BabboNatale(arcade.Window):
             if self.suono: 
                 arcade.play_sound(self.suono_munch)
         
+        if self.cookie.center_x < 0:
+            self.cookie.center_x = 0
+        elif self.cookie.center_x > self.width:
+            self.cookie.center_x = self.width
+        
+        if self.cookie.center_y < 0:
+            self.cookie.center_y = 0
+        elif self.cookie.center_y > self.height:
+            self.cookie.center_y = self.height
+            
+        
         # Gestione collisioni
         collisioni = arcade.check_for_collision_with_list(self.babbo, self.lista_cookie)
         
         if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
             arcade.play_sound(self.suono_munch)
+            self.numero_biscotti += 1
             for cookie in collisioni:
                 cookie.remove_from_sprite_lists()
             self.crea_cookie() # creo un altro biscotto
