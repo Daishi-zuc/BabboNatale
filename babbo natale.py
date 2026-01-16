@@ -174,9 +174,9 @@ class BabboNatale(arcade.Window):
             self.up_pressed = True
         elif tasto in (arcade.key.DOWN, arcade.key.S):
             self.down_pressed = True
-        elif tasto in (arcade.key.LEFT, arcade.key.A):
+        elif tasto in (arcade.key.LEFT, arcade.key.A): #adsadaadsadaadsaddadsadasd
             self.left_pressed = True
-        elif tasto in (arcade.key.RIGHT, arcade.key.D):
+        elif tasto in (arcade.key.RIGHT, arcade.key.D): #fsadfsasd
             self.right_pressed = True
 
         elif tasto == arcade.key.M:
