@@ -169,7 +169,7 @@ class BabboNatale(arcade.Window):
                 cookie.remove_from_sprite_lists()
             self.crea_cookie() # creo un altro biscotto
     
-    def on_key_press(self, tasto, modificatori): #gh
+    def on_key_press(self, tasto, modificatori): #ghsdsds
         if tasto in (arcade.key.UP, arcade.key.W):
             self.up_pressed = True
         elif tasto in (arcade.key.DOWN, arcade.key.S):
