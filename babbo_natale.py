@@ -39,6 +39,8 @@ class BabboNatale(arcade.Window):
         self.lista_babbo = arcade.SpriteList()
         self.lista_cookie = arcade.SpriteList()
         self.suono_munch = arcade.load_sound("./assets/munch.mp3")
+        self.background = None
+        self.lista_background = arcade.SpriteList()
         
         self.up_pressed = False
         self.down_pressed = False
@@ -50,6 +52,9 @@ class BabboNatale(arcade.Window):
         self.setup()
     
     def setup(self):
+
+        self.wallpaper()
+
         self.babbo = arcade.Sprite("./assets/babbo.png")
         self.babbo.center_x = 300
         self.babbo.center_y = 100
@@ -57,6 +62,13 @@ class BabboNatale(arcade.Window):
         self.lista_babbo.append(self.babbo)
         
         self.crea_cookie()
+
+    def wallpaper(self):
+        self.background=arcade.Sprite("./Assets/camino.png")
+        self.background.center_x = 300
+        self.background.center_y = 300
+        self.background.scale = 1.5
+        self.lista_background.append(self.background)
     
     def crea_cookie(self):
         self.cookie = arcade.Sprite("./assets/cookie.png")
@@ -67,9 +79,10 @@ class BabboNatale(arcade.Window):
     
     def on_draw(self):
         self.clear()
+        self.lista_background.draw()
         self.lista_cookie.draw()
         self.lista_babbo.draw()
-    
+        
     def on_update(self, delta_time):
         # Calcola movimento in base ai tasti premuti
         change_x = 0
