@@ -53,6 +53,8 @@ class BabboNatale(arcade.Window):
         self.suono = True
         
         self.velocita = 4
+
+        self.numero_biscotti=0
         
         self.setup()
     
@@ -87,6 +89,7 @@ class BabboNatale(arcade.Window):
         self.lista_background.draw()
         self.lista_cookie.draw()
         self.lista_babbo.draw()
+        arcade.draw_text(f"Biscotti raccolti: {self.numero_biscotti}", 10, 570, arcade.color.BLACK, 14)
         
     def on_update(self, delta_time):
         # Calcola movimento in base ai tasti premuti
