@@ -59,6 +59,9 @@ class BabboNatale(arcade.Window):
         self.contatore_biscotti=0
 
         self.angolo = random.uniform(0,360)
+        self.biscotti_pervolta = 1
+        self.quantity = 1
+        self.contatore = 5
         
         self.setup()
     
@@ -159,6 +162,11 @@ class BabboNatale(arcade.Window):
                 cookie.remove_from_sprite_lists()
                 self.contatore_biscotti += 1
             self.crea_cookie() # creo un altro biscotto
+
+            self.biscotti_pervolta = self.contatore_biscotti // 5 
+
+            for i in range(self.biscotti_pervolta):
+                self.crea_cookie()
     
     def on_key_press(self, tasto, modificatori):
         if tasto in (arcade.key.UP, arcade.key.W):
