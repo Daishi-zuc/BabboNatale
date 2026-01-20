@@ -1,5 +1,7 @@
+from ast import If
 import arcade
 import random
+import math
 
 
 
@@ -54,7 +56,9 @@ class BabboNatale(arcade.Window):
         
         self.velocita = 4
 
-        self.numero_biscotti=0
+        self.contatore_biscotti=0
+
+        self.angolo = random.uniform(0,360)
         
         self.setup()
     
@@ -78,9 +82,14 @@ class BabboNatale(arcade.Window):
         self.lista_background.append(self.background)
     
     def crea_cookie(self):
+        self.angolo = random.uniform(0,360)
+        self.angolo_rad = math.radians(self.angolo)
+        self.distanza = random.randint(100, 250) 
         self.cookie = arcade.Sprite("./assets/cookie.png")
-        self.cookie.center_x = random.randint(50, 550)
-        self.cookie.center_y = random.randint(50, 550)
+        #self.cookie.center_x = random.randint(50, 550)
+        #self.cookie.center_y = random.randint(50, 550)
+        self.cookie.center_x = self.babbo.center_x + self.distanza * math.cos(self.angolo_rad)
+        self.cookie.center_y = self.babbo.center_y + self.distanza * math.sin(self.angolo_rad)
         self.cookie.scale = 0.2
         self.lista_cookie.append(self.cookie)
     
@@ -89,7 +98,7 @@ class BabboNatale(arcade.Window):
         self.lista_background.draw()
         self.lista_cookie.draw()
         self.lista_babbo.draw()
-        arcade.draw_text(f"Biscotti raccolti: {self.numero_biscotti}", 10, 570, arcade.color.BLACK, 14)
+        arcade.draw_text(f"Biscotti raccolti: {self.contatore_biscotti}", 10, 570, arcade.color.RED, 14)
         
     def on_update(self, delta_time):
         # Calcola movimento in base ai tasti premuti
@@ -125,6 +134,17 @@ class BabboNatale(arcade.Window):
             self.babbo.center_y = 0
         elif self.babbo.center_y > self.height:
             self.babbo.center_y = self.height
+
+        if self.cookie.center_x < 0:
+            self.cookie.center_x = 0
+        elif self.cookie.center_x > self.width:
+            self.cookie.center_x = self.width
+        
+        if self.cookie.center_y < 0:
+            self.cookie.center_y = 0
+        elif self.cookie.center_y > self.height:
+            self.cookie.center_y = self.height
+        
         
         # Gestione collisioni
         collisioni = arcade.check_for_collision_with_list(self.babbo, self.lista_cookie)
@@ -137,6 +157,7 @@ class BabboNatale(arcade.Window):
                 
             for cookie in collisioni:
                 cookie.remove_from_sprite_lists()
+                self.contatore_biscotti += 1
             self.crea_cookie() # creo un altro biscotto
     
     def on_key_press(self, tasto, modificatori):
